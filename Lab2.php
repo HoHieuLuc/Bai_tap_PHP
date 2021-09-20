@@ -44,8 +44,7 @@
         echo 'Các số nguyên tố nhỏ hơn n: <br>';
         inCacSoNguyenToNhoHonN($soNguyenNgauNhien);
 
-        $soChuSo = strlen((string)$soNguyenNgauNhien);
-        echo '<br>Số ' . $soNguyenNgauNhien . ' có ' . $soChuSo . ' số chữ số';
+        echo '<br>Số ' . $soNguyenNgauNhien . ' có ' . strlen($soNguyenNgauNhien) . ' số chữ số';
 
         echo '<br>Chữ số lớn nhất: ' . chuSoLonNhatTrongSoNguyenN($soNguyenNgauNhien);
     ?>
