@@ -16,3 +16,6 @@
   padding: 5px;
   width: fit-content;
 }
+.no-border {
+  border: none;
+}
