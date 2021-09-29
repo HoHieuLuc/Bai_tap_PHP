@@ -17,7 +17,7 @@
     $chiSoMoi = isset($_POST['chiSoMoi']) && is_numeric($_POST['chiSoMoi']) ? $_POST['chiSoMoi'] : 0;
     $donGia = isset($_POST['donGia']) && is_numeric($_POST['donGia']) ? $_POST['donGia'] : 20000;
 
-    if ($chiSoMoi > $chiSoCu) {
+    if ($chiSoMoi >= $chiSoCu) {
         $tongTien = ($chiSoMoi - $chiSoCu) * $donGia;
     } else {
         echo "<font color='red'>Chỉ số mới phải lớn hơn chỉ số cũ! </font>";
