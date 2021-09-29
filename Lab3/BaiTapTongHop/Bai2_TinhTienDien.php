@@ -12,7 +12,7 @@
 <body>
     <?php
     $tongTien = 0;
-    $tenChuHo = isset($_POST['tenChuHo']) ? $_POST['tenChuHo'] : '';
+    $tenChuHo = $_POST['tenChuHo'] ?? '';
     $chiSoCu = isset($_POST['chiSoCu']) && is_numeric($_POST['chiSoCu']) ? $_POST['chiSoCu'] : 0;
     $chiSoMoi = isset($_POST['chiSoMoi']) && is_numeric($_POST['chiSoMoi']) ? $_POST['chiSoMoi'] : 0;
     $donGia = isset($_POST['donGia']) && is_numeric($_POST['donGia']) ? $_POST['donGia'] : 20000;
