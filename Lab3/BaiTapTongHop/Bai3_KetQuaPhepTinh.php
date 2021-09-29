@@ -11,7 +11,6 @@
 
 <body>
     <?php
-    $tenPhepTinh = '';
     $phepTinh = $_POST['phepTinh'];
 
     $soThuNhat = isset($_POST['soThuNhat']) && is_numeric($_POST['soThuNhat']) ? $_POST['soThuNhat'] : 0;
