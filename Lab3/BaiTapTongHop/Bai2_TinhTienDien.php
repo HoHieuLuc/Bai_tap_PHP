@@ -33,19 +33,19 @@
             <div>
                 <input type="text" name="tenChuHo" value="<?php echo $tenChuHo ?>">
             </div>
-            Chỉ số cũ
+            Chỉ số cũ:
             <div>
                 <input type="number" min=0 step="any" name="chiSoCu" value="<?php echo $chiSoCu ?>"> (Kw)
             </div>
-            Chỉ số mới
+            Chỉ số mới:
             <div>
                 <input type="number" min=0 step="any" name="chiSoMoi" value="<?php echo $chiSoMoi ?>"> (Kw)
             </div>
-            Đơn giá
+            Đơn giá:
             <div>
                 <input type="number" min=0 name="donGia" value="<?php echo $donGia ?>"> (VNĐ)
             </div>
-            Số tiền thanh toán
+            Số tiền thanh toán:
             <div>
                 <input type="text" name="tongTien" value="<?php echo $tongTien ?>" disabled> (VNĐ)
             </div>
