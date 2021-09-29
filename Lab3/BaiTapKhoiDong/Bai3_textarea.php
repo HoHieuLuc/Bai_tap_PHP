@@ -5,7 +5,7 @@
 </head>
 
 <body>
-    <form action="textarea.php" name="myform" method="post">
+    <form action="" name="myform" method="post">
         Your comment:
         <br>
         <textarea name="comment" rows="3" cols="40"><?php if (isset($_POST['comment'])) echo $_POST['comment']; ?></textarea>

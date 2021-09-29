@@ -5,7 +5,7 @@
 </head>
 
 <body>
-    <form action="input_xuly.php" name="myform" method="post">
+    <form action="" name="myform" method="post">
         Your Name: <input type="text" name="Name" size=20
             value="<?php if(isset($_POST['Name'])) echo $_POST['Name'];?>" />
         <br>

@@ -1,7 +1,7 @@
 <html>
 
 <body>
-    <form method="POST" action="combobox.php">
+    <form action="" method="post">
         <select name="lunch">
             <option value="pork" <?php if (isset($_POST['lunch']) && $_POST['lunch'] == 'pork') echo 'selected'; ?>>
                 BBQ Pork Bun

@@ -1,7 +1,7 @@
 <html>
 
 <body>
-    <form method="POST" action="listbox.php">
+    <form action="" method="post">
         <select name="lunch[]" multiple>
             <option value="pork" selected>
                 BBQ Pork Bun
