@@ -54,9 +54,9 @@
     if ($soNguyen < 10 || $soNguyen > 1000) {
         $ketQua = 'Số nguyên nhập vào phải từ 10 đến 1000';
     } else {
-        $ketQua = 'Các số nguyên tố nhỏ hơn hoặc bằng ' . $soNguyen . ':&#13;&#10;' . inCacSoNguyenToNhoHonN($soNguyen) .
-            '&#13;&#10;Số ' . $soNguyen . ' có ' . strlen($soNguyen) . ' số chữ số' .
-            '&#13;&#10;Chữ số lớn nhất: ' . chuSoLonNhatTrongSoNguyenN($soNguyen);
+        $ketQua = 'Các số nguyên tố nhỏ hơn hoặc bằng ' . $soNguyen . ":\n" . inCacSoNguyenToNhoHonN($soNguyen) .
+            "\nSố " . $soNguyen . ' có ' . strlen($soNguyen) . ' số chữ số' .
+            "\nChữ số lớn nhất: " . chuSoLonNhatTrongSoNguyenN($soNguyen);
     }
 
     ?>
