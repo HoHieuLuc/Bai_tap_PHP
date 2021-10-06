@@ -48,7 +48,6 @@
                     . " từ phần tử được chèn vào đến phần tử cuối là giảm dần:\n";
                 // chia mảng ban đầu thành 2 mảng, sắp xếp từng mảng con rồi ghép lại
                 // chia mảng ra làm 2
-                // 
                 $mangTruoc = array_slice($mang, 0, $viTriChen);
                 $mangSau = array_slice($mang, $viTriChen + 1, count($mang));
                 // sắp xếp mảng sau theo chiều giảm dần
