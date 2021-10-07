@@ -77,14 +77,14 @@
         if (is_numeric($doDai) && $doDai > 0) {
             if (($_POST['hinh']) == "hv") {
                 $hv = new HinhVuong();
-                $hv->setTen($_POST['ten']);
-                $hv->setDoDai($_POST['doDai']);
+                $hv->setTen($ten);
+                $hv->setDoDai($doDai);
                 $chuoiKetQua = "Diện tích hình vuông " . $hv->getTen() . " là: " . $hv->tinhDienTich() . "\n" . "Chu vi của hình vuông " . $hv->getTen() . " là : " . $hv->tinhChuVi();
             }
             if (($_POST['hinh']) == "ht") {
                 $ht = new HinhTron();
-                $ht->setTen($_POST['ten']);
-                $ht->setDoDai($_POST['doDai']);
+                $ht->setTen($ten);
+                $ht->setDoDai($doDai);
                 $chuoiKetQua = "Diện tích của hình tròn " . $ht->getTen() . " là: " . $ht->tinhDienTich() . "\n" . "Chu vi của hình tròn " . $ht->getTen() . " là : " . $ht->tinhChuVi();
             }
         } else {
