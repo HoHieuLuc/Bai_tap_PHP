@@ -89,7 +89,7 @@
 
         function tinhThuong()
         {
-            $tuoi = date("Y") - date("Y", strtotime(parent::getNgaySinh()));
+            $tuoi = parent::tinhTuoi();
             if ($tuoi >= 22 && $tuoi <= 25) {
                 return self::LUONG_CO_BAN * $this->soNamCongTac * 1.1;
             } else if ($tuoi <= 30) {
