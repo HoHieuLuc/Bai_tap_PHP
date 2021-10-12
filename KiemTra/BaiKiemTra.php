@@ -13,8 +13,7 @@
             const radios = document.nhanVien.loaiNhanVien;
             if(radios[0].checked){             
                 document.getElementsByName("soNgayCong")[0].disabled = true;
-                document.getElementsByName("soNamCongTac")[0].disabled = false;
-                
+                document.getElementsByName("soNamCongTac")[0].disabled = false;            
             }
             if(radios[1].checked){
                 document.getElementsByName("soNgayCong")[0].disabled = false;
@@ -42,13 +41,9 @@
             $this->gioiTinh = $gioiTinh;
         }
 
-        function kiemTraTuoi()
+        function tinhTuoi()
         {
-            $tuoi = date("Y") - date("Y", strtotime($this->ngaySinh));
-            if ($tuoi < 18) {
-                return "Tuổi phải lớn hơn 18";
-            }
-            return "ok";
+            return date("Y") - date("Y", strtotime($this->ngaySinh));
         }
 
         function getMaSo()
@@ -156,7 +151,7 @@
         } else {
             if ($loaiNhanVien === 'VanPhong') {
                 $nv = new NhanVienVanPhong($maSo, $hoTen, $ngaySinh, $gioiTinh);
-                if ($nv->kiemTraTuoi() === 'ok') {
+                if ($nv->tinhTuoi() >= 18) {
                     $nv->setSoNamCongTac($soNamCongTac);
                     $thongTinNhanVien = $nv;
                 } else {
@@ -165,7 +160,7 @@
             }
             if ($loaiNhanVien === 'PhucVu') {
                 $nv = new NhanVienPhucVu($maSo, $hoTen, $ngaySinh, $gioiTinh);
-                if ($nv->kiemTraTuoi() === 'ok') {
+                if ($nv->tinhTuoi() >= 18) {
                     $nv->setNgayCong($soNgayCong);
                     $thongTinNhanVien = $nv;
                 } else {
