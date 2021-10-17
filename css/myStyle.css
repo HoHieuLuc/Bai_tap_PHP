@@ -22,6 +22,28 @@
 .half-size{
   width: 50%;
 }
+.small-rounded-img{
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+
+.simple-button{
+  display: inline-block;
+  outline: 0;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 4px;
+  font-size: 13px;
+  height: 30px;
+  background-color: #0000000d;
+  color: #0e0e10;
+  padding: 5px;
+}
+.simple-button:hover {
+  background-color: #0000001a;
+}
 
 *{
   box-sizing: border-box;
@@ -35,7 +57,7 @@ body{
 /* Table Styles */
 
 .table-wrapper{
-  box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
+	box-shadow: 0 8px 16px 0px rgba( 0, 0, 0, 0.2 );
 }
 
 .fl-table {
@@ -60,6 +82,10 @@ body{
   font-size: 12px;
 }
 
+.fl-table tr:hover{
+  background: #d4d4cd;
+}
+
 .fl-table thead th {
   color: #ffffff;
   background: #4FC3A1;
@@ -67,6 +93,10 @@ body{
 
 .fl-table tr:nth-child(even) {
   background: #e3e2de;
+}
+
+.fl-table tr:nth-child(even):hover {
+  background: #d4d4cd;
 }
 
 /* Responsive */
