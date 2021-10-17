@@ -48,7 +48,7 @@
 					   AND Ten_sua LIKE '%$tenSua%'
                     ";
             $result = mysqli_query($dbc, $query);
-            
+
             if (mysqli_num_rows($result) != 0) {
                 $rows = mysqli_num_rows($result);
                 echo "<div align='center'><b>Có $rows sản phẩm được tìm thấy.</b></div>";
