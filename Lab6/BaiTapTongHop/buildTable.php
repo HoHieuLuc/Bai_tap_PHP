@@ -1,14 +1,16 @@
 <?php
-// render ra 1 table cơ bản chứa dữ liệu từ câu truy vấn
-// bảng này chỉ có thể hiển thị dữ liệu dạng text
-// tạo 1 table từ results, header (<th>) của table là 1 mảng gồm các chuỗi
-// số table headers phải bằng số cột mà câu truy vấn trả về
-// hoặc phải bằng số cột chọn ra ở mảng $tableData
-// $tableHeaders = array('cột 1', 'cột 2',...);
-// câu truy vấn có thể trả về nhiều cột, để chọn ra các cột trong câu truy vấn
-// thì sử dụng $tableData
-// $tableData = array('col1', 'col2', ...);
-function buildTable($results, $tableHeaders, $tableData = array(""))
+/**
+ * tạo ra 1 thẻ table chứa dữ liệu từ câu truy vấn
+ * @param mysqli_result $result A result set identifier returned by mysqli_query(), mysqli_store_result() or mysqli_use_result().
+ * @param array $tableHeaders là mảng chứa tên các cột (header) của table
+ * @param array $tableData có hoặc không, là mảng có dạng 'tên cột trong dữ liệu' => 'định dạng'.  
+ * Các định dạng hỗ trợ: image, bool, mặc định: hiển thị text
+ * @example {1} $tableHeaders = array ('Ảnh', 'Giới tính', 'Tên')  
+ * $tableData = array('anh' => 'image', 'gioi_tinh' => 'bool - Nam - Nữ', 'ten' => null)    
+ * buildTable(results, tableHeaders, tableData);  
+ * Lưu ý: Số tableHeaders phải bằng số tableData
+ */
+function buildTable(mysqli_result $results, array $tableHeaders, array $tableData = array(""))
 {
     if (count($tableHeaders) == mysqli_num_fields($results) || count($tableHeaders) == count($tableData)) {
         if (mysqli_num_rows($results) > 0) { ?>
@@ -31,8 +33,21 @@ function buildTable($results, $tableHeaders, $tableData = array(""))
                                 <?php
                                 // nếu table data được truyền vào
                                 if ($tableData != array("")) {
-                                    foreach ($tableData as $tenCot) {
-                                        echo "<td>".$row[$tenCot]."</td>";
+                                    foreach ($tableData as $tenCot => $dinhDang) {
+                                        $dinhDangs = array_map('trim', explode('-', $dinhDang));
+                                        echo "<td>";
+                                        switch ($dinhDangs[0]) {
+                                            case "image":
+                                                echo "<img src ='images/" . $row[$tenCot] . "' alt='ảnh' class='small-rounded-img'";
+                                                break;
+                                            case "bool":
+                                                echo $row[$tenCot] ? $dinhDangs[1] : $dinhDangs[2];
+                                                break;
+                                            default:
+                                                echo $row[$tenCot];
+                                                break;
+                                        }
+                                        echo "</td>";
                                     }
                                 } else {
                                     foreach ($row as $value) {
@@ -48,11 +63,14 @@ function buildTable($results, $tableHeaders, $tableData = array(""))
                 </table>
             </div>
 <?php
+            return 1;
         } else {
             echo "Không có dữ liệu";
+            return 0;
         }
     } else {
         echo "Số header truyền vào phải bằng số cột dữ liệu";
+        return 0;
     }
     mysqli_free_result($results);
 }
