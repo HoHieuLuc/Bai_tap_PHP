@@ -73,6 +73,9 @@ function buildTable(mysqli_result $result, array $tableHeaders, array $tableData
     mysqli_free_result($result);
 }
 
+/**
+ * todo
+ */
 function buildDropDownList(mysqli_result $result, string $selectName, string $id, string $value)
 {
     if (mysqli_num_rows($result) != 0) {
