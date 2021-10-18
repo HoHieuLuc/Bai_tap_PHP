@@ -15,13 +15,12 @@
     <h2 class="center">Danh sách phòng ban</h2>
     <?php
     require_once("connect.php");
-    require_once("buildTable.php");
+    require_once("myFunction.php");
     $tableHeaders = array('Mã phòng', 'Tên phòng');
-    $tableData = array(
-        "ma_phong", "ten_phong",
-    );
-    $query = "SELECT * FROM phong_ban";
-    $stmt = $conn->prepare($query);
+    
+    /* $query = "SELECT * FROM phong_ban";
+    $stmt = $conn->prepare($query); */
+    $stmt;
 
     $maPhong = $_GET['maPhong'] ?? '';
     $tenPhong = $_GET['tenPhong'] ?? '';
