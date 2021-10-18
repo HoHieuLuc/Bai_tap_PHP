@@ -1,6 +1,6 @@
 <?php
 /**
- * tạo ra 1 thẻ table chứa dữ liệu từ câu truy vấn
+ * Tạo ra 1 thẻ table chứa dữ liệu từ câu truy vấn
  * @param mysqli_result $result A result set identifier returned by mysqli_query(), mysqli_store_result() or mysqli_use_result().
  * @param array $tableHeaders là mảng chứa tên các cột (header) của table
  * @param array $tableData có hoặc không, là mảng có dạng 'tên cột trong dữ liệu' => 'định dạng'.  
@@ -63,14 +63,11 @@ function buildTable(mysqli_result $results, array $tableHeaders, array $tableDat
                 </table>
             </div>
 <?php
-            return 1;
         } else {
             echo "Không có dữ liệu";
-            return 0;
         }
     } else {
         echo "Số header truyền vào phải bằng số cột dữ liệu";
-        return 0;
     }
     mysqli_free_result($results);
 }
