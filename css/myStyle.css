@@ -4,11 +4,15 @@
   gap: 10px;
   width: fit-content;
   padding: 10px;
+  align-items: center;
 }
 .grid-container-same-width{
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 10px;
+}
+.grid-container select{
+  font-size: inherit;
 }
 .center {
   Display: flex; 
