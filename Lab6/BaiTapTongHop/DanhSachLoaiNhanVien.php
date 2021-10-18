@@ -15,11 +15,11 @@
     <h2 class="center">Danh sách phòng ban</h2>
     <?php
     require_once("connect.php");
-    require_once("buildTable.php");
-    $query =    "SELECT * FROM loai_nhanvien";
-    $tableHeaders = array('Mã loại nhân viên', 'Tên loại nhân viên');
-    $stmt = $conn->prepare($query);
-
+    require_once("myFunction.php");
+    /* $query =    "SELECT * FROM loai_nhanvien";
+    $stmt = $conn->prepare($query); */
+    $stmt;
+    
     $maLoaiNV = $_GET['maLoaiNV'] ?? '';
     $tenLoaiNV = $_GET['tenLoaiNV'] ?? '';
 
@@ -34,6 +34,7 @@
 
     $stmt->execute();
     $loaiNhanViens = $stmt->get_result();
+    $tableHeaders = array('Mã loại nhân viên', 'Tên loại nhân viên');
     ?>
 
     <div class="center">
