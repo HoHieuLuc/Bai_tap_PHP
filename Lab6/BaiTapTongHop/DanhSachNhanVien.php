@@ -12,11 +12,13 @@
 <body>
     <?php
     include("index.php");
+    require_once("myFunction.php");
     require_once("connect.php");
-    $query = "SELECT * FROM nhan_vien nv JOIN phong_ban pb 
+    /* $query = "SELECT * FROM nhan_vien nv JOIN phong_ban pb 
             ON nv.ma_phong = pb.ma_phong
             JOIN loai_nhanvien lnv ON nv.ma_loai_nv = lnv.ma_loai_nv";
-    $stmt = $conn->prepare($query);
+    $stmt = $conn->prepare($query); */
+    $stmt;
 
     $maNV = $_GET['maNV'] ?? '';
     $hoTenNV = $_GET['hoTenNV'] ?? '';
@@ -47,8 +49,24 @@
 
     $stmt->execute();
     $nhanViens = $stmt->get_result();
+    $tableHeaders = array(
+        'Mã nhân viên', 'Họ', 'Tên', 'Ngày sinh', 'Giới tính',
+        'Địa chỉ', 'Ảnh', 'Loại nhân viên', 'Phòng ban',
+    );
+    $tableData = array(
+        'ma_nv' => null,
+        'ho' => null,
+        'ten' => null,
+        'ngay_sinh' => null,
+        'gioi_tinh' => 'bool - Nam - Nữ',
+        'dia_chi' => null,
+        'anh' => 'image',
+        'ten_loai_nv' => null,
+        'ten_phong' => null,
+    );
     ?>
     <h2 class="center">Danh sách nhân viên</h2>
+    <a href="ThemNhanVien.php">Thêm mới</a>
     <div class="center">
         <form action="" method="GET" class="my-form no-border">
             <div class="grid-container">
@@ -92,48 +110,7 @@
     </div>
 
     <?php
-    if ($nhanViens) { ?>
-        <div class="table-wrapper">
-            <table class="fl-table">
-                <thead>
-                    <tr>
-                        <th>Mã nhân viên</th>
-                        <th>Họ</th>
-                        <th>Tên</th>
-                        <th>Ngày sinh</th>
-                        <th>Giới tính</th>
-                        <th>Địa chỉ</th>
-                        <th>Ảnh</th>
-                        <th>Loại nhân viên</th>
-                        <th>Phòng ban</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    while ($nhanVien = $nhanViens->fetch_assoc()) {
-                    ?>
-                        <tr>
-                            <td><?php echo $nhanVien["ma_nv"] ?></td>
-                            <td><?php echo $nhanVien["ho"] ?></td>
-                            <td><?php echo $nhanVien["ten"] ?></td>
-                            <td><?php echo $nhanVien["ngay_sinh"] ?></td>
-                            <td><?php echo $nhanVien["gioi_tinh"] ? 'Nam' : 'Nữ' ?></td>
-                            <td><?php echo $nhanVien["dia_chi"] ?></td>
-                            <td><img src=<?php echo 'images/' . $nhanVien["anh"] ?> alt="ảnh nhân viên" class="small-rounded-img"></td>
-                            <td><?php echo $nhanVien["ten_loai_nv"] ?></td>
-                            <td><?php echo $nhanVien["ten_phong"] ?></td>
-                        </tr>
-                    <?php
-                    }
-                    ?>
-                </tbody>
-            </table>
-        </div>
-    <?php
-    } else {
-        echo "Không có dữ liệu";
-    }
-    mysqli_free_result($nhanViens);
+    buildTable($nhanViens, $tableHeaders, $tableData);
     mysqli_close($conn);
     ?>
 </body>
