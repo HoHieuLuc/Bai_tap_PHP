@@ -5,20 +5,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danh sách phòng ban</title>
+    <title>Danh sách Loại nhân viên</title>
 </head>
 
 <body>
     <?php
     include("index.php");
     ?>
-    <h2 class="center">Danh sách phòng ban</h2>
+    <h2 class="center">Danh sách Loại nhân viên</h2>
     <?php
     require_once("connect.php");
     require_once("myFunction.php");
     /* $query =    "SELECT * FROM loai_nhanvien";
     $stmt = $conn->prepare($query); */
-    $stmt;
     
     $maLoaiNV = $_GET['maLoaiNV'] ?? '';
     $tenLoaiNV = $_GET['tenLoaiNV'] ?? '';
@@ -36,7 +35,7 @@
     $loaiNhanViens = $stmt->get_result();
     $tableHeaders = array('Mã loại nhân viên', 'Tên loại nhân viên');
     ?>
-
+    <a href="ThemLoaiNhanVien.php">Thêm mới</a>
     <div class="center">
         <form action="" method="GET" class="my-form no-border">
             <div class="grid-container">
@@ -55,7 +54,7 @@
     </div>
 
     <?php
-    buildTable($loaiNhanViens, $tableHeaders);
+    buildTable($loaiNhanViens, "EditLoaiNhanVien.php", "DeleteLoaiNhanVien.php", $tableHeaders, id1: "ma_loai_nv");
     ?>
 </body>
 
