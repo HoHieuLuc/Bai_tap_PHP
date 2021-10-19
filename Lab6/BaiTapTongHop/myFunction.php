@@ -86,9 +86,9 @@ function buildTable(
                                             echo '<a href="' . $deletePath . '?id1=' . $row[$id1] . '">Xóa</a>';
                                         } else {
                                             // chưa test
-                                            echo '<a href="' . $editPath . '?id1=' . $row[$id1] . '&' . '?id2=' . $row[$id2] . '">Sửa</a>';
+                                            echo '<a href="' . $editPath . '?id1=' . $row[$id1] . '&id2=' . $row[$id2] . '">Sửa</a>';
                                             echo ' ';
-                                            echo '<a href="' . $deletePath . '?id1=' . $row[$id1] . '&' . '?id2=' . $row[$id2] . '">Xóa</a>';
+                                            echo '<a href="' . $deletePath . '?id1=' . $row[$id1] . '&id2=' . $row[$id2] . '">Xóa</a>';
                                         }
                                         ?>
                                     </td>
