@@ -102,7 +102,7 @@ function buildTable(
             </div>
             <br>
             <?php
-            if ($maxPage > 0) {
+            if ($maxPage > 1) {
                 echo "<div class='center'>";
                 echo "<div class='flexbox'>";
                 //tạo link tương ứng tới các trang
