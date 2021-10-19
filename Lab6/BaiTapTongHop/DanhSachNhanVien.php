@@ -11,6 +11,7 @@
 
 <body>
     <?php
+    require_once("CheckLogin.php");
     include("index.php");
     require_once("myFunction.php");
     require_once("connect.php");
