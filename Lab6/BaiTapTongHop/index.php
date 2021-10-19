@@ -18,6 +18,7 @@
         <a href="DanhSachLoaiNhanVien.php">Danh sách loại nhân viên</a>
         <div class="last-item">
             <?php
+            ob_start();
             if (!isset($_SESSION)) {
                 session_start();
             }
@@ -31,7 +32,9 @@
             } else {
             ?>
                 <button onclick="document.getElementById('login-modal').style.display='block'" class="login-button">Đăng nhập</button>
-            <?php } ?>
+            <?php
+            }
+            ?>
         </div>
     </div>
     <!-- The Modal -->
@@ -112,14 +115,13 @@
             location.href = "logout.php";
         };
 
-        function kiemTraPassword(){
-            if (password2.value !== password.value){
+        function kiemTraPassword() {
+            if (password2.value !== password.value) {
                 verifyPasswordError.innerHTML = "Mật khẩu không khớp";
                 verifyPasswordError.style.color = "red";
                 registerButton.disabled = true;
                 registerButton.style.backgroundColor = "gray";
-            }
-            else {
+            } else {
                 verifyPasswordError.innerHTML = "";
                 registerButton.disabled = false;
                 registerButton.style.backgroundColor = "#04AA6D";
