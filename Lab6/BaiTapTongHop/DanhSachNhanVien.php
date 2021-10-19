@@ -18,7 +18,6 @@
             ON nv.ma_phong = pb.ma_phong
             JOIN loai_nhanvien lnv ON nv.ma_loai_nv = lnv.ma_loai_nv";
     $stmt = $conn->prepare($query); */
-    $stmt;
 
     $maNV = $_GET['maNV'] ?? '';
     $hoTenNV = $_GET['hoTenNV'] ?? '';
@@ -110,7 +109,7 @@
     </div>
 
     <?php
-    buildTable($nhanViens, $tableHeaders, $tableData);
+    buildTable($nhanViens, "EditNhanVien.php", "DeleteNhanVien.php", $tableHeaders, $tableData, "ma_nv");
     mysqli_close($conn);
     ?>
 </body>
