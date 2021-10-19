@@ -39,7 +39,6 @@
             }
         }
     }
-
     ?>
 
     <div class="center">
