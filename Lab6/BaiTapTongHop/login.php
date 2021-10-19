@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once("connect.php");
+require_once("myFunction.php");
 if (!isset($_POST['username'], $_POST['password'])) {
     exit('Please fill both the username and password fields!');
 }
@@ -24,14 +25,14 @@ if ($stmt = $conn->prepare('SELECT id, password FROM tai_khoan WHERE username = 
             header("Location: " . "index.php");
         } else {
             // Incorrect password
-            //echo 'Incorrect username and/or password!';
-            header("Location: " . "index.php");
+            phpAlert("Sai tài khoản hoặc mật khẩu");
+            header("refresh:0; url=index.php");
         }
     } else {
         // Incorrect username
-        //echo 'Incorrect username and/or password!';
-        header("Location: " . "index.php");
+        phpAlert("Sai tài khoản hoặc mật khẩu");
+        header("refresh:0; url=index.php");
     }
-
     $stmt->close();
+    mysqli_close($conn);
 }
