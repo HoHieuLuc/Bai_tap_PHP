@@ -17,8 +17,12 @@
     <?php
     require_once("connect.php");
     require_once("myFunction.php");
-    /* $query =    "SELECT * FROM loai_nhanvien";
-    $stmt = $conn->prepare($query); */
+
+    $rowsPerPage = 5;
+    if (!isset($_GET['page'])) {
+        $_GET['page'] = 1;
+    }
+    $offset = ($_GET['page'] - 1) * $rowsPerPage;
 
     $maLoaiNV = $_GET['maLoaiNV'] ?? '';
     $tenLoaiNV = $_GET['tenLoaiNV'] ?? '';
@@ -27,14 +31,31 @@
         $query =
             "SELECT * FROM loai_nhanvien
             WHERE ma_loai_nv LIKE CONCAT('%', ?, '%')
-            AND ten_loai_nv LIKE CONCAT('%', ?, '%')";
+            AND ten_loai_nv LIKE CONCAT('%', ?, '%')
+            LIMIT $offset, $rowsPerPage
+            ";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("ss", $maLoaiNV, $tenLoaiNV);
+        $stmt->execute();
+        $loaiNhanViens = $stmt->get_result();
+
+        $query =
+            "SELECT * FROM loai_nhanvien
+            WHERE ma_loai_nv LIKE CONCAT('%', ?, '%')
+            AND ten_loai_nv LIKE CONCAT('%', ?, '%')
+            ";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("ss", $maLoaiNV, $tenLoaiNV);
+        $stmt->execute();
+        $maxPage = ceil($stmt->get_result()->num_rows / $rowsPerPage);
     }
 
-    $stmt->execute();
-    $loaiNhanViens = $stmt->get_result();
     $tableHeaders = array('Mã loại nhân viên', 'Tên loại nhân viên');
+
+    $queryData = array(
+        'maLoaiNV' => $maLoaiNV,
+        'tenLoaiNV' => $tenLoaiNV,
+    );
     ?>
     <a href="ThemLoaiNhanVien.php">Thêm mới</a>
     <div class="center">
@@ -55,7 +76,15 @@
     </div>
 
     <?php
-    buildTable($loaiNhanViens, "EditLoaiNhanVien.php", "DeleteLoaiNhanVien.php", $tableHeaders, id1: "ma_loai_nv");
+    buildTable(
+        $loaiNhanViens,
+        "EditLoaiNhanVien.php",
+        "DeleteLoaiNhanVien.php",
+        $tableHeaders,
+        id1: "ma_loai_nv",
+        maxPage: $maxPage,
+        searchQuery: getSearchQuery($queryData)
+    );
     ?>
 </body>
 
