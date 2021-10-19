@@ -10,6 +10,7 @@
 
 <body>
     <?php
+    require_once("CheckLogin.php");
     include("index.php");
     ?>
     <h2 class="center">Danh sách phòng ban</h2>
