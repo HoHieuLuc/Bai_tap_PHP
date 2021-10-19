@@ -15,10 +15,12 @@
     include("index.php");
     require_once("myFunction.php");
     require_once("connect.php");
-    /* $query = "SELECT * FROM nhan_vien nv JOIN phong_ban pb 
-            ON nv.ma_phong = pb.ma_phong
-            JOIN loai_nhanvien lnv ON nv.ma_loai_nv = lnv.ma_loai_nv";
-    $stmt = $conn->prepare($query); */
+
+    $rowsPerPage = 5;
+    if (!isset($_GET['page'])) {
+        $_GET['page'] = 1;
+    }
+    $offset = ($_GET['page'] - 1) * $rowsPerPage;
 
     $maNV = $_GET['maNV'] ?? '';
     $hoTenNV = $_GET['hoTenNV'] ?? '';
@@ -42,13 +44,33 @@
             AND nv.dia_chi LIKE CONCAT('%', ?, '%')
             AND lnv.ten_loai_nv LIKE CONCAT('%', ?, '%')
             AND pb.ten_phong LIKE CONCAT('%', ?, '%')
+            ORDER BY nv.`ma_nv`
+            LIMIT $offset, $rowsPerPage
             ";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("ssisss", $maNV, $hoTenNV, $gioiTinh, $diaChi, $loaiNV, $phongBan);
+        $stmt->execute();
+        $nhanViens = $stmt->get_result();
+
+        // Đếm tổng số hàng trả về
+        // bỏ đi limit offset
+        $query =
+            "SELECT * FROM nhan_vien nv 
+            JOIN phong_ban pb ON nv.ma_phong = pb.ma_phong
+            JOIN loai_nhanvien lnv ON nv.ma_loai_nv = lnv.ma_loai_nv
+            WHERE ma_nv LIKE CONCAT('%', ?, '%')
+            AND CONCAT(nv.`ho`, ' ', nv.`ten`) LIKE CONCAT('%', ?, '%')
+            AND $queryGioiTinh
+            AND nv.dia_chi LIKE CONCAT('%', ?, '%')
+            AND lnv.ten_loai_nv LIKE CONCAT('%', ?, '%')
+            AND pb.ten_phong LIKE CONCAT('%', ?, '%')
+        ";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("ssisss", $maNV, $hoTenNV, $gioiTinh, $diaChi, $loaiNV, $phongBan);
+        $stmt->execute();
+        $maxPage = ceil($stmt->get_result()->num_rows / $rowsPerPage);
     }
 
-    $stmt->execute();
-    $nhanViens = $stmt->get_result();
     $tableHeaders = array(
         'Mã nhân viên', 'Họ', 'Tên', 'Ngày sinh', 'Giới tính',
         'Địa chỉ', 'Ảnh', 'Loại nhân viên', 'Phòng ban',
@@ -64,7 +86,18 @@
         'ten_loai_nv' => null,
         'ten_phong' => null,
     );
+
+    $queryData = array(
+        'maNV' => $maNV,
+        'hoTenNV' => $hoTenNV,
+        'gioiTinh' => $gioiTinh,
+        'diaChi' => $diaChi,
+        'loaiNV' => $loaiNV,
+        'phongBan' => $phongBan,
+    );
+
     ?>
+
     <h2 class="center">Danh sách nhân viên</h2>
     <a href="ThemNhanVien.php">Thêm mới</a>
     <div class="center">
@@ -110,7 +143,16 @@
     </div>
 
     <?php
-    buildTable($nhanViens, "EditNhanVien.php", "DeleteNhanVien.php", $tableHeaders, $tableData, "ma_nv");
+    buildTable(
+        $nhanViens,
+        "EditNhanVien.php",
+        "DeleteNhanVien.php",
+        $tableHeaders,
+        $tableData,
+        "ma_nv",
+        maxPage: $maxPage,
+        searchQuery: getSearchQuery($queryData)
+    );
     mysqli_close($conn);
     ?>
 </body>
