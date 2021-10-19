@@ -23,9 +23,16 @@ button {
 .login-button{
   width: fit-content;
 }
-
+.logout-button{
+  background-color: #f44336;
+  color: white;
+}
 button:hover {
   opacity: 0.8;
+}
+#register-link{
+  color: blue;
+  text-decoration: underline;
 }
 
 /* Extra styles for the cancel button */
@@ -80,7 +87,7 @@ span.psw {
   background-color: #fefefe;
   margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
   border: 1px solid #888;
-  width: fit-content; /* Could be more or less, depending on screen size */
+  width: 500px; /* Could be more or less, depending on screen size */
 }
 
 /* The Close Button (x) */
