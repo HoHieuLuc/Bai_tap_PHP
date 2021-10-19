@@ -53,7 +53,7 @@ function buildTable(
                         ?>
                             <tr>
                                 <?php
-                                // nếu table data được truyền vào
+                                // nếu table data được truyền vào, tạo các thẻ <td> tương ứng với định dạng
                                 if ($tableData != array("")) {
                                     foreach ($tableData as $tenCot => $dinhDang) {
                                         $dinhDangs = array_map('trim', explode('-', $dinhDang));
