@@ -17,10 +17,9 @@
     require_once("connect.php");
     require_once("myFunction.php");
     $tableHeaders = array('Mã phòng', 'Tên phòng');
-    
+
     /* $query = "SELECT * FROM phong_ban";
     $stmt = $conn->prepare($query); */
-    $stmt;
 
     $maPhong = $_GET['maPhong'] ?? '';
     $tenPhong = $_GET['tenPhong'] ?? '';
@@ -38,6 +37,7 @@
     $phongs = $stmt->get_result();
 
     ?>
+    <a href="ThemPhong.php">Thêm mới</a>
     <div class="center">
         <form action="" method="GET" class="my-form no-border">
             <div class="grid-container">
@@ -56,7 +56,7 @@
     </div>
 
     <?php
-    buildTable($phongs, $tableHeaders);
+    buildTable($phongs, "EditPhong.php", "DeletePhong.php", $tableHeaders, id1: "ma_phong");
     ?>
 </body>
 
