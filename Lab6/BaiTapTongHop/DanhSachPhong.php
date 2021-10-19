@@ -17,10 +17,12 @@
     <?php
     require_once("connect.php");
     require_once("myFunction.php");
-    $tableHeaders = array('Mã phòng', 'Tên phòng');
 
-    /* $query = "SELECT * FROM phong_ban";
-    $stmt = $conn->prepare($query); */
+    $rowsPerPage = 5;
+    if (!isset($_GET['page'])) {
+        $_GET['page'] = 1;
+    }
+    $offset = ($_GET['page'] - 1) * $rowsPerPage;
 
     $maPhong = $_GET['maPhong'] ?? '';
     $tenPhong = $_GET['tenPhong'] ?? '';
@@ -29,13 +31,33 @@
         $query =
             "SELECT * FROM phong_ban 
             WHERE ma_phong LIKE CONCAT('%', ?, '%')
-            AND ten_phong LIKE CONCAT('%', ?, '%')";
+            AND ten_phong LIKE CONCAT('%', ?, '%')
+            ORDER BY ma_phong
+            LIMIT $offset, $rowsPerPage
+            ";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("ss", $maPhong, $tenPhong);
+        $stmt->execute();
+        $phongs = $stmt->get_result();
+        //
+        $query =
+            "SELECT * FROM phong_ban 
+            WHERE ma_phong LIKE CONCAT('%', ?, '%')
+            AND ten_phong LIKE CONCAT('%', ?, '%')
+        ";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("ss", $maPhong, $tenPhong);
+        $stmt->execute();
+        $maxPage = ceil($stmt->get_result()->num_rows / $rowsPerPage);
     }
 
-    $stmt->execute();
-    $phongs = $stmt->get_result();
+
+    $tableHeaders = array('Mã phòng', 'Tên phòng');
+
+    $queryData = array(
+        'maPhong' => $maPhong,
+        'tenPhong' => $tenPhong
+    );
 
     ?>
     <a href="ThemPhong.php">Thêm mới</a>
@@ -57,7 +79,15 @@
     </div>
 
     <?php
-    buildTable($phongs, "EditPhong.php", "DeletePhong.php", $tableHeaders, id1: "ma_phong");
+    buildTable(
+        $phongs,
+        "EditPhong.php",
+        "DeletePhong.php",
+        $tableHeaders,
+        id1: "ma_phong",
+        searchQuery: getSearchQuery($queryData),
+        maxPage: $maxPage
+    );
     ?>
 </body>
 
