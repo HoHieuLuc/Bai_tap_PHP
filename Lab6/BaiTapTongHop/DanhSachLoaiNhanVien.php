@@ -10,6 +10,7 @@
 
 <body>
     <?php
+    require_once("CheckLogin.php");
     include("index.php");
     ?>
     <h2 class="center">Danh sách Loại nhân viên</h2>
@@ -18,11 +19,11 @@
     require_once("myFunction.php");
     /* $query =    "SELECT * FROM loai_nhanvien";
     $stmt = $conn->prepare($query); */
-    
+
     $maLoaiNV = $_GET['maLoaiNV'] ?? '';
     $tenLoaiNV = $_GET['tenLoaiNV'] ?? '';
 
-    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+    if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $query =
             "SELECT * FROM loai_nhanvien
             WHERE ma_loai_nv LIKE CONCAT('%', ?, '%')
