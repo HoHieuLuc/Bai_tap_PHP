@@ -14,6 +14,16 @@
 .grid-container select{
   font-size: inherit;
 }
+.flexbox{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.last-item{
+  margin-left: auto;
+}
+
 .center {
   Display: flex; 
   Justify-content: center; 
@@ -30,12 +40,18 @@
 .half-size{
   width: 50%;
 }
+.float-right{
+  float: right;
+}
 .small-rounded-img{
   border-radius: 50%;
   width: 50px;
   height: 50px;
 }
-
+.small-img{
+  width: 128px;
+  height: auto;
+}
 .simple-button{
   display: inline-block;
   outline: 0;
