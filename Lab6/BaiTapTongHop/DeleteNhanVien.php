@@ -39,7 +39,7 @@
         $stmt = $conn->prepare($query);
         $stmt->execute();
         if ($conn->affected_rows == 1) {
-            unlink('images/' . $anhNV);
+            //unlink('images/' . $anhNV);
             header("Location: " . "DanhSachNhanVien.php");
         } else {
             echo "Xóa không thành công";
