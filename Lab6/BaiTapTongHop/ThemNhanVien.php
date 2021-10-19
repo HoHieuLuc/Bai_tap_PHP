@@ -14,7 +14,7 @@
     require_once("connect.php");
     require_once("myFunction.php");
 
-    $query = "SELECT ma_nv FROM nhan_vien ORDER BY ma_nv DESC";
+    $query = "SELECT ma_nv FROM nhan_vien ORDER BY ma_nv DESC LIMIT 1";
     $result = mysqli_query($conn, $query);
 
     $maNV = getNextID($result, 'ma_nv', 'NV', 4);
@@ -51,6 +51,9 @@
             $anhNV = $_FILES['anhNV']['name'];
             $tmp = $_FILES['anhNV']['tmp_name'];
             move_uploaded_file($tmp, 'images/' . $anhNV);
+            if ($anhNV === ''){
+                $anhNV = 'default.jpg';
+            }
             $query = "INSERT INTO nhan_vien VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($query);
             $stmt->bind_param(
